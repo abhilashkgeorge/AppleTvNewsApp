@@ -11,9 +11,23 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    var categories = ["Business", "Culture", "Sport", "Technology", "Travel"]
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+             
+            var viewControllers = [UIViewController]()
+            
+            for category in categories {
+                if let newsController = tabBarController.storyboard?.instantiateViewController(withIdentifier: "news") as? ViewController {
+                    newsController.title = category
+                    viewControllers.append(newsController)
+                }
+            }
+            tabBarController.viewControllers = viewControllers
+        }
         // Override point for customization after application launch.
         return true
     }
